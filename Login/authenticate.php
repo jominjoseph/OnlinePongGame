@@ -23,7 +23,7 @@
                 unset($result["password"]);
                 session_start();
                 $_SESSION["user"] = $result;
-                die(header("Location: home.php"));
+                die(header( "refresh:5; url=wherever.php" ));
                 //echo "<br>";
                 //var_export($_SESSION);
             }
