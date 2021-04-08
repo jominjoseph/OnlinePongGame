@@ -1,5 +1,7 @@
 <?php
-session_start();
-require(__DIR__."/../lib/myFunctions.php");
-getDebug(true);
+require("nav.php");
+//getDebug(true);
 ?>
+<div>
+Welcome, <?php safe($_SESSION["user"]["email"]);?>!
+</div>
