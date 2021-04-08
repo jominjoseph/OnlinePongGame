@@ -1,7 +1,7 @@
 <?php 
  session_set_cookie_params([
             'lifetime' => 60*60,
-            'path' => '/~jj496/Login',
+            'path' => '/~jj496/IT202',
             'domain' => $_SERVER['HTTP_HOST'],
             'secure' => true,
             'httponly' => true,
