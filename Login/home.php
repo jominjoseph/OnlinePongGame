@@ -1,5 +1,10 @@
 <?php
-session_start();
-require(__DIR__."/../lib/myFunctions.php");
-getDebug(true);
+require("nav.php");
+//getDebug(true);
+if(!is_logged_in()){
+    die(header("Location: authenticate.php"));
+}
 ?>
+<div>
+Welcome, <?php safe(get_username());?>!
+</div>
