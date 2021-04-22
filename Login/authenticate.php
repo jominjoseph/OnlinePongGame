@@ -44,9 +44,4 @@ if (isset($_REQUEST["email"])) {
 }
 ?>
 <form method="POST">
-    <label>Email/Username</label>
-    <input type="text" name="email" />
-    <label>Password</label>
-    <input type="password" name="password" />
-    <input type="submit" value="Login" />
-</form>
+
