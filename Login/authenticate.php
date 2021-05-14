@@ -23,7 +23,7 @@ if (isset($_REQUEST["email"])) {
                 echo "<br>";
                 echo "Hey you logged in!";
                 unset($result["password"]);
-                //session_start();
+                session_start();
                 $_SESSION["user"] = $result;
                 //uncomment below to have an example of malicious user data
                 ///$_SESSION["user"]["email"] = "<script>alert('The cookie monster has your cookies!' + document.cookie);</script>";
@@ -50,3 +50,4 @@ if (isset($_REQUEST["email"])) {
     <input type="password" name="password" />
     <input type="submit" value="Login" />
 </form>
+
