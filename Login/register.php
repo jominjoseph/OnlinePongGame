@@ -53,13 +53,31 @@
         $hash = password_hash($password, PASSWORD_BCRYPT);
         $password = mysqli_real_escape_string($db, $password);
         
-        $sql = "INSERT INTO mt_users (email, password, rawPassword, username) VALUES ('$email', '$hash','$password', '$username')";
-        $retVal = mysqli_query($db, $sql);
+        ///$sql = "INSERT INTO mt_users (email, password, rawPassword, username) VALUES ('$email', '$hash','$password', '$username')";
+        //query with placeholders
+        $sql = "INSERT INTO mt_users (email, password, rawPassword, username) VALUES (?,?,?,?)";
+        //init a statement "object"
+        $stmt = mysqli_stmt_init($db);
+        //prepare the sql
+        mysqli_stmt_prepare($stmt, $sql);
+        //bind the values to pass in (sanitizes)
+        mysqli_stmt_bind_param($stmt, "ssss", $email, $hash, $password, $username);
+        //executes everything
+        $retVal = mysqli_stmt_execute($stmt);
+
+        //$retVal = mysqli_query($db, $sql);
         if($retVal){
             echo "Welcome to the club";
         }
         else{
-            echo "Something didn't work out " . mysqli_error($db);
+            echo mysql_error_info($db);
+            //"practical" regex example
+            /*if(preg_match('[Duplicate]', $error, $matches) > 0){
+                echo "This email is already in use";
+            }
+            else{
+                echo "Something didn't work out " . mysqli_error($db);
+            }*/
         }
         //TODO: don't forget to close your connection, don't want resource leaks
         mysqli_close($db);
@@ -123,7 +141,9 @@ function validate(form){
 <input type="text" name="username" required/>
 <span id="vUsername"></span>
 <label>Password</label>
-<input type="password" name="password" required/>
+<input type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+title="Must contain at least one  number and one uppercase and lowercase letter, and at least 6 or more characters"
+name="password" required/>
 <span id="vPassword"></span>
 <label>Confirm Password</label>
 <input type="password" name="confirm" required/>
